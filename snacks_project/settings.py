@@ -14,10 +14,11 @@ from pathlib import Path
 import environ
 
 env = environ.Env(
+    # We are doing a default setting here because even if something happens to the .env, we set this to false to make sure Django dosn't start pusging out to much information on the error pages (you know, the good stuff we have been using to debug out pages until revently)
     DEBUG=(bool, False)
 )
 
-#read .env file
+# read .env file
 environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,12 +28,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-
 SECRET_KEY = env.str('SECRET_KEY')
 
 DEBUG = env.bool('DEBUG')
 
 ALLOWED_HOSTS = tuple(env.list('ALLOWED_HOSTS'))
+
 
 # Application definition
 
@@ -44,8 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #3rd party
+    # 3rd party
     'rest_framework',
+    'corsheaders',
 
     # local
     'snacks',
@@ -53,6 +55,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -89,10 +93,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': env('DATABASE_NAME'),
-        'USER':env('DATABASE_USER'),
-        'PASSWORD':env('DATABASE_PASSWORD'),
-        'HOST':env('DATABASE_HOST'),
-        'PORT':env('DATABASE_PORT')
+        'USER': env('DATABASE_USER'),
+        'PASSWORD':  env('DATABASE_PASSWORD'),
+        'HOST':  env('DATABASE_HOST'),
+        'PORT':  env('DATABASE_PORT')
     }
 }
 
@@ -134,16 +138,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STAIC_DIR = BASE_DIR/ 'static'
+STATIC_ROOT = BASE_DIR /'staticfiles'
+STATICFILES_DIRS = [
+    STAIC_DIR,
+]
 
 REST_FRAMEWORK = {
-    # new for lab 32
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
-    # New for lab 33 (also installed rest_framework_simplejwt)
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-    )
+    ],
 }
+
+
+CORS_ALLOW_ALL_ORIGINS=True
+
