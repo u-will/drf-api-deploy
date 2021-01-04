@@ -168,6 +168,14 @@ setproctitle = ["setproctitle"]
 tornado = ["tornado (>=0.2)"]
 
 [[package]]
+name = "http"
+version = "0.02"
+description = "HTTP library for Python"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "httpie"
 version = "2.3.0"
 description = "HTTPie: command-line HTTP client for the API era."
@@ -413,7 +421,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "2c180cb6675716a6b20d477dc4f97ac83b0833c2234374cb215895b25c1b1007"
+content-hash = "a7604411b8c052b5d66248f90211afe4dc6a582a756d4bacd0d7f32144bd525e"
 
 [metadata.files]
 appdirs = [
@@ -469,6 +477,9 @@ flake8 = [
 gunicorn = [
     {file = "gunicorn-20.0.4-py2.py3-none-any.whl", hash = "sha256:cd4a810dd51bf497552cf3f863b575dabd73d6ad6a91075b65936b151cbf4f9c"},
     {file = "gunicorn-20.0.4.tar.gz", hash = "sha256:1904bb2b8a43658807108d59c3f3d56c2b6121a701161de0ddf9ad140073c626"},
+]
+http = [
+    {file = "http-0.02.tar.gz", hash = "sha256:071bc409f687535b6e31a94bced6a7773905abad8d2f236b406202b7283f682c"},
 ]
 httpie = [
     {file = "httpie-2.3.0-py3-none-any.whl", hash = "sha256:e34983be20427073e465f0c3e3615f896c19ed5202827328a47ceda40f57f0c6"},
