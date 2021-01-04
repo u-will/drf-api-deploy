@@ -4,4 +4,4 @@ build:
 release:
   image: web
 run:
-  web: gunicorn snacks_project.wsgi
+  web: gunicorn snacks_project.wsgi 
